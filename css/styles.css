@@ -1,0 +1,42 @@
+/* Fondo negro y texto legible */
+:root{
+  --bg: #000;
+  --text: #fff;
+  --muted: #bdbdbd;
+  --accent: #1e90ff;
+}
+
+html,body{
+  height:100%;
+  margin:0;
+  background-color:var(--bg);
+  color:var(--text);
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+/* Botones por defecto */
+button {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Botón transparente para staff (se quiere así) */
+button.staff {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid rgba(255,255,255,0.15);
+  backdrop-filter: blur(2px);
+}
+
+/* Estado oculto */
+.hidden { display:none !important; }
+
+/* Cuando usuario no autenticado, desactivar controles */
+.not-signed-in .needs-auth {
+  opacity: 0.5;
+  pointer-events: none;
+}
