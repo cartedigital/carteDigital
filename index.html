@@ -1,34 +1,26 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CARTE AI — Creación de Video con IA</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <header>
-        <div class="logo">CARTE AI</div>
-        <nav>
-            <a href="index.html">Inicio</a>
-            <a href="#crear">Crear</a>
-            <a href="#funciones">Funciones</a>
-            <a href="#formatos">Formatos</a>
-            <a href="register.html">Registrarse</a>
-            <a href="login.html">Iniciar sesión</a>
-        </nav>
-    </header>
+<!-- Añade en tu index.html (ajusta rutas a css/js según estructura) -->
+<link rel="stylesheet" href="css/styles.css">
 
-    <main>
-        <section class="hero">
-            <h1>Convierte tus ideas en videos increíbles.</h1>
-            <p>Crea videos con inteligencia artificial a partir de imágenes, texto y escenarios. Controla el movimiento, la cámara, el fondo y el formato de tus videos.</p>
-            <a href="#crear" class="btn-primary">✨ Crear video con IA</a>
-        </section>
-    </main>
+<!-- Auth UI -->
+<div id="auth">
+  <h2>Iniciar sesión / Registrarse</h2>
+  <input id="email" type="email" placeholder="Correo" />
+  <input id="password" type="password" placeholder="Contraseña" />
+  <button id="signupBtn">Registrarme</button>
+  <button id="loginBtn">Iniciar sesión</button>
+  <button id="logoutBtn" class="hidden">Cerrar sesión</button>
+</div>
 
-    <footer>
-        <p>CARTE AI — Plataforma de creación de contenido con IA © 2026 — Todos los derechos reservados.</p>
-    </footer>
-</body>
-</html>
+<!-- Contenido de la página -->
+<main id="app" class="not-signed-in">
+  <div>
+    <button id="primaryAction" class="needs-auth">Acción principal</button>
+    <button id="secondaryAction" class="needs-auth">Otra acción</button>
+    <!-- Botón staff: oculto por defecto -->
+    <button id="staffBtn" class="staff hidden">Panel Staff</button>
+  </div>
+
+  <div id="userInfo"></div>
+</main>
+
+<script src="js/auth.js"></script>
