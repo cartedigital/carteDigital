@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - CARTE AI</title>
+    <!-- Librería y configuración de Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: radial-gradient(circle at 10% 10%, rgba(155,92,255,.13), transparent 30%), radial-gradient(circle at 90% 20%, rgba(0,234,255,.10), transparent 30%), #050505;
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background: #0d0d0d;
+            border: 1px solid #252525;
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 0 60px rgba(0,0,0,.6);
+        }
+        h2 { margin-bottom: 25px; font-size: 28px; text-align: center; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-size: 14px; color: #aaa; }
+        input {
+            width: 100%;
+            background: #111;
+            border: 1px solid #292929;
+            color: white;
+            border-radius: 10px;
+            padding: 14px;
+            font-size: 14px;
+        }
+        input:focus { border-color: #00eaff; outline: none; }
+        button {
+            width: 100%;
+            background: linear-gradient(90deg, #ff2bd6, #9b5cff);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: .3s;
+            margin-top: 10px;
+        }
+        button:hover { transform: translateY(-2px); opacity: 0.9; }
+        .message { margin-top: 20px; padding: 12px; border-radius: 8px; font-size: 14px; text-align: center; }
+        .success { background: rgba(0,255,157,0.1); border: 1px solid #00ff9d; color: #00ff9d; }
+        .error { background: rgba(255,51,85,0.1); border: 1px solid #ff3355; color: #ff3355; }
+        .back-link { display: block; text-align: center; margin-top: 20px; color: #888; text-decoration: none; font-size: 13px; }
+        .back-link:hover { color: white; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Iniciar Sesión</h2>
+        <div id="formMessage"></div>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Correo electrónico:</label>
+                <input type="email" id="email" required placeholder="tu@correo.com">
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" required placeholder="Tu contraseña">
+            </div>
+            <button type="submit">Entrar</button>
+        </form>
+        <a href="index.html" class="back-link">← Volver al inicio</a>
+    </div>
+
+    <script>
+        const form = document.getElementById('loginForm');
+        const message = document.getElementById('formMessage');
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const button = form.querySelector('button[type="submit"]');
+
+            try {
+                button.disabled = true;
+                button.textContent = "Iniciando sesión...";
+
+                const { data, error } = await window.supabaseClient.auth.signInWithPassword({
+                    email: email,
+                    password: password
+                });
+
+                if (error) {
+                    throw error;
+                }
+
+                message.className = "message success";
+                message.textContent = "¡Sesión iniciada con éxito! Redirigiendo...";
+                
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
+
+            } catch (error) {
+                console.error(error);
+                message.className = "message error";
+                message.textContent = "Error al iniciar sesión: " + error.message;
+            } finally {
+                button.disabled = false;
+                button.textContent = "Entrar";
+            }
+        });
+    </script>
+</body>
+</html>
