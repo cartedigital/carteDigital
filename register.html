@@ -3,81 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro - Republic Mex City</title>
-    <!-- Librería y configuración de Supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="supabase-config.js"></script>
+    <title>CARTE AI — Creación de Video con IA</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h2>Crear Cuenta</h2>
-        <div id="formMessage"></div>
-        <form id="registerForm">
-            <div>
-                <label for="name">Nombre:</label>
-                <input type="text" id="name" required>
-            </div>
-            <div>
-                <label for="email">Correo electrónico:</label>
-                <input type="email" id="email" required>
-            </div>
-            <div>
-                <label for="password">Contraseña:</label>
-                <input type="password" id="password" required>
-            </div>
-            <button type="submit">Crear mi cuenta</button>
-        </form>
-    </div>
+    <header>
+        <div class="logo">CARTE AI</div>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="#crear">Crear</a>
+            <a href="#funciones">Funciones</a>
+            <a href="#formatos">Formatos</a>
+            <a href="register.html">Registrarse</a>
+            <a href="login.html">Iniciar sesión</a>
+        </nav>
+    </header>
 
-    <script>
-        const form = document.getElementById('registerForm');
-        const message = document.getElementById('formMessage');
+    <main>
+        <section class="hero">
+            <h1>Convierte tus ideas en videos increíbles.</h1>
+            <p>Crea videos con inteligencia artificial a partir de imágenes, texto y escenarios. Controla el movimiento, la cámara, el fondo y el formato de tus videos.</p>
+            <a href="#crear" class="btn-primary">✨ Crear video con IA</a>
+        </section>
+    </main>
 
-        form.addEventListener('submit', async function(e) {
-            e.preventDefault();
-
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const button = form.querySelector('button[type="submit"]');
-
-            if (password.length < 6) {
-                message.className = "message error";
-                message.textContent = "La contraseña debe tener al menos 6 caracteres.";
-                return;
-            }
-
-            try {
-                button.disabled = true;
-                button.textContent = "Creando cuenta...";
-
-                const { data, error } = await window.supabaseClient.auth.signUp({
-                    email: email,
-                    password: password,
-                    options: {
-                        data: {
-                            name: name
-                        }
-                    }
-                });
-
-                if (error) {
-                    throw error;
-                }
-
-                message.className = "message success";
-                message.innerHTML = "✅ Cuenta creada correctamente.<br><br>Revisa tu correo electrónico para confirmar tu cuenta.";
-                form.reset();
-
-            } catch (error) {
-                console.error(error);
-                message.className = "message error";
-                message.textContent = "No se pudo crear la cuenta: " + error.message;
-            } finally {
-                button.disabled = false;
-                button.textContent = "Crear mi cuenta";
-            }
-        });
-    </script>
+    <footer>
+        <p>CARTE AI — Plataforma de creación de contenido con IA © 2026 — Todos los derechos reservados.</p>
+    </footer>
 </body>
 </html>
